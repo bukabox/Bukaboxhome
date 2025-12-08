@@ -39,12 +39,11 @@ RUN printf '%s\n' \
 '}' \
 > /etc/nginx/conf.d/default.conf
 
-# Copy built files from build stage. Support both "dist" (Vite) and "build" (CRA)
-COPY --from=build /app/dist /usr/share/nginx/html
+# Copy built files from build stage (Vite outputs to "build" directory)
 COPY --from=build /app/build /usr/share/nginx/html
 
 # If repository includes a root index.html (static), also copy it as fallback
-COPY --from=build /app/index.html /usr/share/nginx/html || true
+RUN cp -f /app/index.html /usr/share/nginx/html/ 2>/dev/null || true
 
 EXPOSE 80
 
