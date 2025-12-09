@@ -17,7 +17,7 @@ export function Hero() {
             <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-600 rounded-full"></div>
           </div>
           
-          <h1 className="text-5xl sm:text-7xl md:text-9xl tracking-tight font-black">
+          <h1 className="text-8xl md:text-9xl tracking-tight font-black">
             <span className="bg-gradient-to-r from-slate-900 via-blue-900 to-blue-600 bg-clip-text text-transparent">
               BUKABOX
             </span>
@@ -25,7 +25,7 @@ export function Hero() {
         </div>
 
         {/* Subtitle */}
-        <p className="text-lg sm:text-xl md:text-2xl text-slate-600 mb-8 md:mb-12 max-w-2xl mx-auto">
+        <p className="text-xl md:text-2xl text-slate-600 mb-12 max-w-2xl mx-auto">
           Breaking the Box
         </p>
 
