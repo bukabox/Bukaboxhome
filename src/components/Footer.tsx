@@ -1,12 +1,22 @@
 import { Box } from 'lucide-react';
 import { FaYoutube, FaInstagram } from 'react-icons/fa';
 import { AiFillTikTok } from 'react-icons/ai';
+import { motion } from 'framer-motion';
 
 export function Footer() {
   return (
     <footer className="bg-slate-900 text-white py-12 px-4">
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+        <motion.div 
+          className="flex flex-col md:flex-row justify-between items-center gap-6"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{
+            duration: 0.6,
+            ease: [0.22, 1, 0.36, 1]
+          }}
+        >
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-3">
               <Box className="w-8 h-8 text-blue-400" />
@@ -53,7 +63,7 @@ export function Footer() {
           <p className="text-slate-400 text-sm">
             © 2025 BUKABOX. All rights reserved.
           </p>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

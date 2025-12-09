@@ -10,6 +10,28 @@
   }
 }
 
+@layer utilities {
+  .text-6xl {
+    font-size: 3.75rem; /* 60px */
+    line-height: 1;
+  }
+  
+  .text-7xl {
+    font-size: 4.5rem; /* 72px */
+    line-height: 1;
+  }
+  
+  .text-8xl {
+    font-size: 6rem; /* 96px */
+    line-height: 1;
+  }
+  
+  .text-9xl {
+    font-size: 8rem; /* 128px */
+    line-height: 1;
+  }
+}
+
 /* Custom animations for blob effect */
 @keyframes blob {
   0% {

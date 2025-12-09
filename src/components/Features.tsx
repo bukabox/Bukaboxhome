@@ -1,4 +1,5 @@
 import { PiggyBank, BanknoteArrowDown, BrainCircuit } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export function Features() {
   const features = [
@@ -23,22 +24,39 @@ export function Features() {
   return (
     <section id="features" className="py-24 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{
+            duration: 0.6,
+            ease: [0.22, 1, 0.36, 1]
+          }}
+        >
           <h2 className="text-4xl md:text-5xl mb-4 text-slate-900">
             Kenapa <span className="font-black">BUKABOX</span>?
           </h2>
           <p className="text-slate-600 max-w-2xl mx-auto">
             Temukan produk unggulan kami
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <div
+              <motion.div
                 key={index}
                 className="group relative p-8 rounded-2xl bg-gradient-to-br from-slate-50 to-blue-50 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-slate-100"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.15,
+                  ease: [0.22, 1, 0.36, 1]
+                }}
               >
                 {feature.badge && (
                   <div className="absolute top-4 right-4 px-3 py-1 bg-blue-600 text-white text-sm rounded-full">
@@ -54,7 +72,7 @@ export function Features() {
                 <p className="text-slate-600">
                   {feature.description}
                 </p>
-              </div>
+              </motion.div>
             );
           })}
         </div>
