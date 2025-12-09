@@ -12,7 +12,7 @@ export function Hero() {
         {/* Logo and Title */}
         <div className="flex flex-col items-center gap-4 md:gap-6 mb-6 md:mb-8">
           <div className="relative">
-            <Box className="w-24 h-24 md:w-32 md:h-32 text-blue-600 stroke-[1.5]" />
+            <Box className="w-32 h-32 md:w-48 md:h-48 text-blue-600 stroke-[1.5]" />
             <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-600 rounded-full animate-ping"></div>
             <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-600 rounded-full"></div>
           </div>
