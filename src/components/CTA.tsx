@@ -14,12 +14,12 @@ export function CTA() {
           Bergabunglah dengan ribuan kreator independen yang telah memulai perjalanan mereka bersama BUKABOX
         </p>
         <a 
-          href="https://www.youtube.com/@BUKABOX_id" 
+          href="https://www.youtube.com/@BUKABOX_id?sub_confirmation=1" 
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block px-10 py-5 bg-white text-blue-600 rounded-full hover:bg-blue-50 transition-all duration-300 hover:scale-105 shadow-2xl"
         >
-          Subscribe di YouTube
+          Join Now
         </a>
       </div>
     </section>

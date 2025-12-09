@@ -35,7 +35,11 @@ export function Hero() {
             Mulai Sekarang
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
-          <button className="px-8 py-4 bg-white text-blue-600 border-2 border-blue-600 rounded-full hover:bg-blue-50 transition-all duration-300 hover:scale-105 shadow-md">
+          <button 
+          onClick={() => {
+          document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+        }}
+          className="px-8 py-4 bg-white text-blue-600 border-2 border-blue-600 rounded-full hover:bg-blue-50 transition-all duration-300 hover:scale-105 shadow-md">
             Pelajari Lebih Lanjut
           </button>
         </div>
