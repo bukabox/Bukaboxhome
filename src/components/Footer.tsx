@@ -1,7 +1,7 @@
 import { Box } from 'lucide-react';
 import { FaYoutube, FaInstagram } from 'react-icons/fa';
 import { AiFillTikTok } from 'react-icons/ai';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 type PageType = 'home' | 'pricing' | 'checkout' | 'terms' | 'privacy' | 'refund';
 
