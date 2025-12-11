@@ -207,7 +207,7 @@ function AppContent() {
           <div className="min-h-screen bg-white">
             <Hero onNavigate={handlePageChange} />
             <Features onNavigate={handlePageChange} />
-            <CTA />
+            <CTA onNavigate={handlePageChange} />
             <Footer onNavigate={handlePageChange} />
           </div>
         )}

@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Mail, User } from 'lucide-react';
+import { X, Mail, User, Box } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useAuth } from '../../contexts/AuthContext';
 import { useState } from 'react';
@@ -106,8 +106,8 @@ export function GoogleLoginModal({ isOpen, onClose }: GoogleLoginModalProps) {
           <div className="p-8">
             {/* Logo & Title */}
             <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-white">B</span>
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <Box className="w-8 h-8 text-white" />
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to BUKABOX</h2>
               <p className="text-gray-600">Sign in to continue to your account</p>
