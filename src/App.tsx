@@ -8,13 +8,16 @@ import { CheckoutPage } from './components/checkout/CheckoutPage';
 import { TermsOfService } from './components/legal/TermsOfService';
 import { PrivacyPolicy } from './components/legal/PrivacyPolicy';
 import { RefundPolicy } from './components/legal/RefundPolicy';
+import { NetworthSystemPage } from './components/features/NetworthSystemPage';
+import { ROITrackerPage } from './components/features/ROITrackerPage';
+import { TaxAutomationPage } from './components/features/TaxAutomationPage';
 import { useState, useEffect } from 'react';
 import { Button } from './components/ui/button';
 import { Box, Menu, X, User, LogOut } from 'lucide-react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
-type PageType = 'home' | 'pricing' | 'checkout' | 'terms' | 'privacy' | 'refund';
+type PageType = 'home' | 'pricing' | 'checkout' | 'terms' | 'privacy' | 'refund' | 'features' | 'networth' | 'roi-tracker' | 'tax-automation';
 
 const GOOGLE_CLIENT_ID = '259632371100-lcvi0bedl024rjgl3t2s1q77oaglb9qu.apps.googleusercontent.com';
 
@@ -73,17 +76,26 @@ function AppContent() {
                 </Button>
                 <Button
                   variant="ghost"
+                  onClick={() => {
+                    if (currentPage === 'home') {
+                      document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      handlePageChange('home');
+                      setTimeout(() => {
+                        document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+                      }, 100);
+                    }
+                  }}
+                  className="text-gray-600 hover:text-blue-600"
+                >
+                  Features
+                </Button>
+                <Button
+                  variant="ghost"
                   onClick={() => handlePageChange('pricing')}
                   className={currentPage === 'pricing' ? 'text-blue-600' : 'text-gray-600'}
                 >
                   Pricing
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => handlePageChange('checkout')}
-                  className={currentPage === 'checkout' ? 'text-blue-600' : 'text-gray-600'}
-                >
-                  Checkout
                 </Button>
 
                 {/* User Menu or Login */}
@@ -135,17 +147,27 @@ function AppContent() {
                   </Button>
                   <Button
                     variant="ghost"
+                    onClick={() => {
+                      if (currentPage === 'home') {
+                        setMobileMenuOpen(false);
+                        document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+                      } else {
+                        handlePageChange('home');
+                        setTimeout(() => {
+                          document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+                        }, 100);
+                      }
+                    }}
+                    className="justify-start text-gray-600 hover:text-blue-600"
+                  >
+                    Features
+                  </Button>
+                  <Button
+                    variant="ghost"
                     onClick={() => handlePageChange('pricing')}
                     className={`justify-start ${currentPage === 'pricing' ? 'text-blue-600' : 'text-gray-600'}`}
                   >
                     Pricing
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    onClick={() => handlePageChange('checkout')}
-                    className={`justify-start ${currentPage === 'checkout' ? 'text-blue-600' : 'text-gray-600'}`}
-                  >
-                    Checkout
                   </Button>
 
                   {/* Mobile User Menu */}
@@ -184,7 +206,7 @@ function AppContent() {
         {currentPage === 'home' && (
           <div className="min-h-screen bg-white">
             <Hero onNavigate={handlePageChange} />
-            <Features />
+            <Features onNavigate={handlePageChange} />
             <CTA />
             <Footer onNavigate={handlePageChange} />
           </div>
@@ -195,6 +217,9 @@ function AppContent() {
         {currentPage === 'terms' && <TermsOfService onNavigate={handlePageChange} />}
         {currentPage === 'privacy' && <PrivacyPolicy onNavigate={handlePageChange} />}
         {currentPage === 'refund' && <RefundPolicy onNavigate={handlePageChange} />}
+        {currentPage === 'networth' && <NetworthSystemPage onNavigate={handlePageChange} />}
+        {currentPage === 'roi-tracker' && <ROITrackerPage onNavigate={handlePageChange} />}
+        {currentPage === 'tax-automation' && <TaxAutomationPage onNavigate={handlePageChange} />}
       </div>
     </>
   );
