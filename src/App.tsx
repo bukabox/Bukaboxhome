@@ -4,7 +4,7 @@ import { CTA } from './components/CTA';
 import { Footer } from './components/Footer';
 import { SplashScreen } from './components/SplashScreen';
 import PricingPage from './PricingPage';
-import { CheckoutPlaceholder } from './components/checkout/CheckoutPlaceholder';
+import { CheckoutPage } from './components/checkout/CheckoutPage';
 import { TermsOfService } from './components/legal/TermsOfService';
 import { PrivacyPolicy } from './components/legal/PrivacyPolicy';
 import { RefundPolicy } from './components/legal/RefundPolicy';
@@ -17,6 +17,7 @@ type PageType = 'home' | 'pricing' | 'checkout' | 'terms' | 'privacy' | 'refund'
 
 function AppContent() {
   const [currentPage, setCurrentPage] = useState<PageType>('home');
+  const [selectedPlan, setSelectedPlan] = useState<string | undefined>(undefined);
   const [showNavbar, setShowNavbar] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
@@ -34,8 +35,9 @@ function AppContent() {
   }, [currentPage]);
 
   // Scroll to top when changing pages
-  const handlePageChange = (page: PageType) => {
+  const handlePageChange = (page: PageType, planId?: string) => {
     setCurrentPage(page);
+    setSelectedPlan(planId);
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -186,7 +188,7 @@ function AppContent() {
         )}
 
         {currentPage === 'pricing' && <PricingPage onNavigate={handlePageChange} />}
-        {currentPage === 'checkout' && <CheckoutPlaceholder onNavigate={handlePageChange} />}
+        {currentPage === 'checkout' && <CheckoutPage onNavigate={handlePageChange} selectedPlan={selectedPlan} />}
         {currentPage === 'terms' && <TermsOfService onNavigate={handlePageChange} />}
         {currentPage === 'privacy' && <PrivacyPolicy onNavigate={handlePageChange} />}
         {currentPage === 'refund' && <RefundPolicy onNavigate={handlePageChange} />}

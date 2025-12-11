@@ -9,6 +9,7 @@ import { useState } from 'react';
 
 const pricingTiers = [
   {
+    id: 'starter',
     name: 'Starter',
     price: '59.000',
     description: 'For individuals who want basic financial tracking and project automation.',
@@ -23,6 +24,7 @@ const pricingTiers = [
     buttonText: 'Choose Starter',
   },
   {
+    id: 'pro',
     name: 'Pro',
     price: '119.000',
     description: 'Best for creators and small businesses who need full automation and financial tools.',
@@ -38,6 +40,7 @@ const pricingTiers = [
     buttonText: 'Choose Pro',
   },
   {
+    id: 'studio',
     name: 'Studio',
     price: '249.000',
     description: 'For teams and agencies that require collaboration features.',
@@ -53,16 +56,22 @@ const pricingTiers = [
   },
 ];
 
-export function PricingCards() {
+interface PricingCardsProps {
+  onNavigate?: (page: 'home' | 'pricing' | 'checkout', planId?: string) => void;
+}
+
+export function PricingCards({ onNavigate }: PricingCardsProps) {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const { isAuthenticated } = useAuth();
 
-  const handlePlanSelect = () => {
+  const handlePlanSelect = (planId: string) => {
     if (!isAuthenticated) {
       setShowLoginModal(true);
     } else {
-      // In production, this would redirect to checkout
-      alert('Redirecting to secure checkout...');
+      // Navigate to checkout with selected plan
+      if (onNavigate) {
+        onNavigate('checkout', planId);
+      }
     }
   };
 
@@ -115,7 +124,7 @@ export function PricingCards() {
                 </ul>
 
                 <Button
-                  onClick={handlePlanSelect}
+                  onClick={() => handlePlanSelect(tier.id)}
                   className={
                     tier.popular
                       ? 'w-full bg-blue-600 hover:bg-blue-700 text-white'

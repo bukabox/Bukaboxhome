@@ -9,14 +9,14 @@ import { Footer } from './components/Footer';
 type PageType = 'home' | 'pricing' | 'checkout' | 'terms' | 'privacy' | 'refund';
 
 interface PricingPageProps {
-  onNavigate?: (page: PageType) => void;
+  onNavigate?: (page: PageType, planId?: string) => void;
 }
 
 export default function PricingPage({ onNavigate }: PricingPageProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       <PricingHero />
-      <PricingCards />
+      <PricingCards onNavigate={onNavigate} />
       <HowItWorks />
       <CheckoutExplanation />
       <FAQ />
