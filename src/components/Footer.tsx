@@ -3,7 +3,13 @@ import { FaYoutube, FaInstagram } from 'react-icons/fa';
 import { AiFillTikTok } from 'react-icons/ai';
 import { motion } from 'framer-motion';
 
-export function Footer() {
+type PageType = 'home' | 'pricing' | 'checkout' | 'terms' | 'privacy' | 'refund';
+
+interface FooterProps {
+  onNavigate?: (page: PageType) => void;
+}
+
+export function Footer({ onNavigate }: FooterProps = {}) {
   return (
     <footer className="bg-slate-900 text-white py-12 px-4">
       <div className="max-w-6xl mx-auto">
@@ -56,6 +62,14 @@ export function Footer() {
           <div className="flex gap-8 text-slate-400">
             <a href="#" className="hover:text-white transition-colors">About</a>
             <a href="#" className="hover:text-white transition-colors">Products</a>
+            {onNavigate && (
+              <button 
+                onClick={() => onNavigate('pricing')}
+                className="hover:text-white transition-colors"
+              >
+                Pricing
+              </button>
+            )}
             <a href="#" className="hover:text-white transition-colors">Blog</a>
             <a href="#" className="hover:text-white transition-colors">Contact</a>
           </div>
