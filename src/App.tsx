@@ -12,8 +12,11 @@ import { useState, useEffect } from 'react';
 import { Button } from './components/ui/button';
 import { Box, Menu, X, User, LogOut } from 'lucide-react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 type PageType = 'home' | 'pricing' | 'checkout' | 'terms' | 'privacy' | 'refund';
+
+const GOOGLE_CLIENT_ID = '259632371100-lcvi0bedl024rjgl3t2s1q77oaglb9qu.apps.googleusercontent.com';
 
 function AppContent() {
   const [currentPage, setCurrentPage] = useState<PageType>('home');
@@ -199,8 +202,10 @@ function AppContent() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </GoogleOAuthProvider>
   );
 }
