@@ -1,12 +1,18 @@
 import { motion } from 'motion/react';
 import { Shield, LogIn, CreditCard, CheckCircle } from 'lucide-react';
 import { Button } from '../ui/button';
+import { GoogleLoginModal } from '../auth/GoogleLoginModal';
+import { useAuth } from '../../contexts/AuthContext';
+import { useState } from 'react';
 
 interface CheckoutPlaceholderProps {
   onNavigate?: (page: 'home' | 'pricing' | 'checkout' | 'terms' | 'privacy' | 'refund') => void;
 }
 
 export function CheckoutPlaceholder({ onNavigate }: CheckoutPlaceholderProps) {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const { isAuthenticated } = useAuth();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-20">
       <div className="container mx-auto px-4 max-w-4xl">
@@ -51,25 +57,46 @@ export function CheckoutPlaceholder({ onNavigate }: CheckoutPlaceholderProps) {
           </div>
         </motion.div>
 
-        {/* Ready to Continue Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mb-12"
-        >
-          <h2 className="mb-6 text-3xl">Ready to continue?</h2>
-          <Button 
-            size="lg"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 mb-3"
+        {/* Ready to Continue Section - Only show if not authenticated */}
+        {!isAuthenticated && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-center mb-12"
           >
-            <LogIn className="mr-2 h-5 w-5" />
-            Login to Dashboard
-          </Button>
-          <p className="text-sm text-gray-600">
-            You will complete subscription payment after logging in.
-          </p>
-        </motion.div>
+            <h2 className="mb-6 text-3xl">Ready to continue?</h2>
+            <Button 
+              size="lg"
+              onClick={() => setShowLoginModal(true)}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 mb-3"
+            >
+              <LogIn className="mr-2 h-5 w-5" />
+              Login to Dashboard
+            </Button>
+            <p className="text-sm text-gray-600">
+              You will complete subscription payment after logging in.
+            </p>
+          </motion.div>
+        )}
+
+        {/* Logged in message */}
+        {isAuthenticated && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-center mb-12"
+          >
+            <div className="bg-green-50 border border-green-200 rounded-xl p-6">
+              <CheckCircle className="w-12 h-12 text-green-600 mx-auto mb-3" />
+              <h2 className="mb-2 text-2xl text-green-900">You're logged in!</h2>
+              <p className="text-green-700">
+                In a production environment, you would now proceed to the secure payment gateway.
+              </p>
+            </div>
+          </motion.div>
+        )}
 
         {/* Steps Section */}
         <motion.div
@@ -136,6 +163,9 @@ export function CheckoutPlaceholder({ onNavigate }: CheckoutPlaceholderProps) {
           </div>
         </motion.div>
       </div>
+
+      {/* Google Login Modal */}
+      <GoogleLoginModal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)} />
     </div>
   );
 }

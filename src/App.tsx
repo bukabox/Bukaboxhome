@@ -10,14 +10,16 @@ import { PrivacyPolicy } from './components/legal/PrivacyPolicy';
 import { RefundPolicy } from './components/legal/RefundPolicy';
 import { useState, useEffect } from 'react';
 import { Button } from './components/ui/button';
-import { Box, Menu, X } from 'lucide-react';
+import { Box, Menu, X, User, LogOut } from 'lucide-react';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 
 type PageType = 'home' | 'pricing' | 'checkout' | 'terms' | 'privacy' | 'refund';
 
-export default function App() {
+function AppContent() {
   const [currentPage, setCurrentPage] = useState<PageType>('home');
   const [showNavbar, setShowNavbar] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useAuth();
 
   // Show navbar after splash screen (3 seconds) or immediately if not on home page
   useEffect(() => {
@@ -78,6 +80,28 @@ export default function App() {
                 >
                   Checkout
                 </Button>
+
+                {/* User Menu or Login */}
+                {isAuthenticated && user ? (
+                  <div className="flex items-center gap-2 ml-2 pl-2 border-l border-gray-300">
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-50">
+                      <img 
+                        src={user.picture} 
+                        alt={user.name}
+                        className="w-6 h-6 rounded-full"
+                      />
+                      <span className="text-sm text-gray-900">{user.name}</span>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={logout}
+                      className="text-gray-600"
+                    >
+                      <LogOut className="w-4 h-4" />
+                    </Button>
+                  </div>
+                ) : null}
               </div>
 
               {/* Mobile Menu Button */}
@@ -118,6 +142,31 @@ export default function App() {
                   >
                     Checkout
                   </Button>
+
+                  {/* Mobile User Menu */}
+                  {isAuthenticated && user && (
+                    <>
+                      <div className="flex items-center gap-2 px-3 py-2 mt-2 border-t border-gray-200">
+                        <img 
+                          src={user.picture} 
+                          alt={user.name}
+                          className="w-8 h-8 rounded-full"
+                        />
+                        <div>
+                          <div className="text-sm text-gray-900">{user.name}</div>
+                          <div className="text-xs text-gray-500">{user.email}</div>
+                        </div>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        onClick={logout}
+                        className="justify-start text-red-600"
+                      >
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Logout
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             )}
@@ -129,7 +178,7 @@ export default function App() {
       <div className={showNavbar ? "pt-16" : ""}>
         {currentPage === 'home' && (
           <div className="min-h-screen bg-white">
-            <Hero />
+            <Hero onNavigate={handlePageChange} />
             <Features />
             <CTA />
             <Footer onNavigate={handlePageChange} />
@@ -143,5 +192,13 @@ export default function App() {
         {currentPage === 'refund' && <RefundPolicy onNavigate={handlePageChange} />}
       </div>
     </>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }

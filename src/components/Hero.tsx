@@ -1,7 +1,13 @@
 import { Box, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 
-export function Hero() {
+type PageType = 'home' | 'pricing' | 'checkout' | 'terms' | 'privacy' | 'refund';
+
+interface HeroProps {
+  onNavigate?: (page: PageType) => void;
+}
+
+export function Hero({ onNavigate }: HeroProps) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 to-blue-50 py-20 md:py-0">
       {/* Decorative elements */}
@@ -68,15 +74,13 @@ export function Hero() {
             ease: [0.22, 1, 0.36, 1]
           }}
         >
-          <a 
-            href="https://www.youtube.com/@BUKABOX_id?sub_confirmation=1" 
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => onNavigate?.('pricing')}
             className="group px-8 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
           >
             Mulai Sekarang
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </a>
+          </button>
           <button 
             onClick={() => {
               document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });

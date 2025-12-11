@@ -1,7 +1,30 @@
 import { motion } from 'motion/react';
 import { Button } from '../ui/button';
+import { GoogleLoginModal } from '../auth/GoogleLoginModal';
+import { useAuth } from '../../contexts/AuthContext';
+import { useState } from 'react';
 
 export function PricingHero() {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const { isAuthenticated } = useAuth();
+
+  const handleSubscribeClick = () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+    } else {
+      // Scroll to pricing cards
+      document.getElementById('pricing-cards')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleDashboardClick = () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+    } else {
+      alert('Redirecting to dashboard...');
+    }
+  };
+
   return (
     <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 to-blue-50 py-20 md:py-28">
       {/* Decorative elements - same as homepage */}
@@ -27,6 +50,7 @@ export function PricingHero() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button 
               size="lg"
+              onClick={handleSubscribeClick}
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
             >
               Subscribe Now
@@ -34,6 +58,7 @@ export function PricingHero() {
             <Button 
               size="lg"
               variant="outline"
+              onClick={handleDashboardClick}
               className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-4 rounded-full shadow-md transition-all duration-300 hover:scale-105"
             >
               View Dashboard
@@ -41,6 +66,9 @@ export function PricingHero() {
           </div>
         </motion.div>
       </div>
+
+      {/* Google Login Modal */}
+      <GoogleLoginModal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)} />
     </section>
   );
 }

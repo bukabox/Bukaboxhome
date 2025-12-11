@@ -3,6 +3,9 @@ import { Check } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Card } from '../ui/card';
 import { Badge } from '../ui/badge';
+import { GoogleLoginModal } from '../auth/GoogleLoginModal';
+import { useAuth } from '../../contexts/AuthContext';
+import { useState } from 'react';
 
 const pricingTiers = [
   {
@@ -51,8 +54,20 @@ const pricingTiers = [
 ];
 
 export function PricingCards() {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const { isAuthenticated } = useAuth();
+
+  const handlePlanSelect = () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+    } else {
+      // In production, this would redirect to checkout
+      alert('Redirecting to secure checkout...');
+    }
+  };
+
   return (
-    <section className="py-20 bg-white">
+    <section id="pricing-cards" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {pricingTiers.map((tier, index) => (
@@ -100,6 +115,7 @@ export function PricingCards() {
                 </ul>
 
                 <Button
+                  onClick={handlePlanSelect}
                   className={
                     tier.popular
                       ? 'w-full bg-blue-600 hover:bg-blue-700 text-white'
@@ -113,6 +129,9 @@ export function PricingCards() {
           ))}
         </div>
       </div>
+
+      {/* Google Login Modal */}
+      <GoogleLoginModal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)} />
     </section>
   );
 }

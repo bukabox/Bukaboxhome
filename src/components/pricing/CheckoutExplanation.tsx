@@ -1,8 +1,22 @@
 import { motion } from 'motion/react';
 import { Shield, ArrowRight } from 'lucide-react';
 import { Button } from '../ui/button';
+import { GoogleLoginModal } from '../auth/GoogleLoginModal';
+import { useAuth } from '../../contexts/AuthContext';
+import { useState } from 'react';
 
 export function CheckoutExplanation() {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const { isAuthenticated } = useAuth();
+
+  const handleLoginClick = () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+    } else {
+      alert('Redirecting to dashboard...');
+    }
+  };
+
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -25,15 +39,28 @@ export function CheckoutExplanation() {
                   <br /><br />
                   This public pricing page is provided to meet payment gateway verification requirements.
                 </p>
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                  Login to Continue
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                {!isAuthenticated ? (
+                  <Button 
+                    onClick={handleLoginClick}
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                  >
+                    Login to Continue
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                ) : (
+                  <div className="flex items-center gap-2 text-green-600">
+                    <Shield className="w-5 h-5" />
+                    <span className="font-medium">You're logged in and ready to subscribe!</span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </motion.div>
       </div>
+
+      {/* Google Login Modal */}
+      <GoogleLoginModal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)} />
     </section>
   );
 }
