@@ -20,8 +20,8 @@ const RefundPage = lazy(() => import('@/pages/legal/refund'));
 
 // Feature detail pages
 const NetworthFeaturePage = lazy(() => import('@/pages/features/networth'));
-const ROIFeaturePage = lazy(() => import('@/pages/features/roi'));
-const TaxFeaturePage = lazy(() => import('@/pages/features/tax'));
+const ROIFeaturePage = lazy(() => import('@/pages/features/roi-tracker'));
+const TaxFeaturePage = lazy(() => import('@/pages/features/tax-automation'));
 
 // Checkout
 const CheckoutPage = lazy(() => import('@/pages/checkout'));
