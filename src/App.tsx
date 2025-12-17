@@ -4,6 +4,7 @@ import MemberDashboard from './pages/MemberDashboard';
 import Dashboard from './pages/Dashboard';
 import DashboardOverview from './pages/DashboardOverview';
 import ProjectsPage from './pages/ProjectsPage';
+import NetworthPage from './pages/NetworthPage';
 import { Hero } from './components/Hero';
 import { Features } from './components/Features';
 import { CTA } from './components/CTA';
@@ -317,10 +318,8 @@ function AppContent() {
           {/* Dashboard Routes with Nested Structure */}
           <Route path="/dashboard" element={<Dashboard />}>
             <Route index element={<DashboardOverview />} />
-            <Route path="networth" element={<div className="p-6 bg-white rounded-xl">Networth Tracker (Coming Soon)</div>} />
+            <Route path="networth" element={<NetworthPage />} />
             <Route path="projects" element={<ProjectsPage />} />
-            <Route path="roi" element={<div className="p-6 bg-white rounded-xl">ROI Calculator (Coming Soon)</div>} />
-            <Route path="tax" element={<div className="p-6 bg-white rounded-xl">Tax Automation (Coming Soon)</div>} />
             <Route path="settings" element={<div className="p-6 bg-white rounded-xl">Settings (Coming Soon)</div>} />
           </Route>
 

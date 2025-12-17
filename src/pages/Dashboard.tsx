@@ -50,7 +50,7 @@ export default function Dashboard() {
 
   const menuItems = [
     {
-      section: 'DASHBOARD',
+      section: 'MAIN',
       items: [
         { 
           id: 'overview', 
@@ -77,13 +77,6 @@ export default function Dashboard() {
           icon: Calculator, 
           path: '/dashboard/projects',
           active: location.pathname.startsWith('/dashboard/projects')
-        },
-        { 
-          id: 'tax', 
-          label: 'Tax Automation', 
-          icon: FileText, 
-          path: '/dashboard/tax',
-          active: location.pathname.startsWith('/dashboard/tax')
         }
       ]
     },
@@ -95,7 +88,7 @@ export default function Dashboard() {
           label: 'Settings', 
           icon: Settings, 
           path: '/dashboard/settings',
-          active: location.pathname === '/dashboard/settings'
+          active: location.pathname.startsWith('/dashboard/settings')
         }
       ]
     }
