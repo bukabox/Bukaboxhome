@@ -136,6 +136,8 @@
     --text-xs--line-height: calc(1 / .75);
     --text-sm: .875rem;
     --text-sm--line-height: calc(1.25 / .875);
+    --text-base: 1rem;
+    --text-base--line-height: calc(1.5 / 1);
     --text-lg: 1.125rem;
     --text-lg--line-height: calc(1.75 / 1.125);
     --text-xl: 1.25rem;
@@ -510,12 +512,12 @@
     inset: calc(var(--spacing) * 0);
   }
 
-  .-top-2 {
-    top: calc(var(--spacing) * -2);
+  .-top-1 {
+    top: calc(var(--spacing) * -1);
   }
 
-  .-top-4 {
-    top: calc(var(--spacing) * -4);
+  .-top-2 {
+    top: calc(var(--spacing) * -2);
   }
 
   .top-0 {
@@ -754,6 +756,10 @@
 
   .hidden {
     display: none;
+  }
+
+  .inline-block {
+    display: inline-block;
   }
 
   .inline-flex {
@@ -1024,6 +1030,10 @@
     cursor: pointer;
   }
 
+  .resize-none {
+    resize: none;
+  }
+
   .list-disc {
     list-style-type: disc;
   }
@@ -1250,6 +1260,10 @@
 
   .border-slate-200 {
     border-color: var(--color-slate-200);
+  }
+
+  .border-slate-300 {
+    border-color: var(--color-slate-300);
   }
 
   .border-transparent {
@@ -1824,6 +1838,11 @@
   .text-5xl {
     font-size: var(--text-5xl);
     line-height: var(--tw-leading, var(--text-5xl--line-height));
+  }
+
+  .text-base {
+    font-size: var(--text-base);
+    line-height: var(--tw-leading, var(--text-base--line-height));
   }
 
   .text-lg {
@@ -2437,6 +2456,12 @@
   }
 
   @media (hover: hover) {
+    .hover\:text-purple-700:hover {
+      color: var(--color-purple-700);
+    }
+  }
+
+  @media (hover: hover) {
     .hover\:text-red-500:hover {
       color: var(--color-red-500);
     }
@@ -2642,6 +2667,12 @@
   }
 
   @media (width >= 48rem) {
+    .md\:py-32 {
+      padding-block: calc(var(--spacing) * 32);
+    }
+  }
+
+  @media (width >= 48rem) {
     .md\:text-2xl {
       font-size: var(--text-2xl);
       line-height: var(--tw-leading, var(--text-2xl--line-height));
@@ -2706,6 +2737,12 @@
   @media (width >= 64rem) {
     .lg\:col-span-2 {
       grid-column: span 2 / span 2;
+    }
+  }
+
+  @media (width >= 64rem) {
+    .lg\:grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 

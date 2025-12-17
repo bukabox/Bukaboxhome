@@ -4,6 +4,7 @@ import { CTA } from './components/CTA';
 import { Footer } from './components/Footer';
 import { SplashScreen } from './components/SplashScreen';
 import PricingPage from './PricingPage';
+import ContactPage from './ContactPage';
 import { CheckoutPage } from './components/checkout/CheckoutPage';
 import { TermsOfService } from './components/legal/TermsOfService';
 import { PrivacyPolicy } from './components/legal/PrivacyPolicy';
@@ -16,6 +17,7 @@ import { Button } from './components/ui/button';
 import { Box, Menu, X, User, LogOut } from 'lucide-react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 type PageType = 'home' | 'pricing' | 'checkout' | 'terms' | 'privacy' | 'refund' | 'features' | 'networth' | 'roi-tracker' | 'tax-automation';
 
@@ -27,10 +29,16 @@ function AppContent() {
   const [showNavbar, setShowNavbar] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Check if we're on contact page (router-based)
+  const isContactPage = location.pathname === '/contact';
+  const isPricingPage = location.pathname === '/pricing';
 
   // Show navbar after splash screen (3 seconds) or immediately if not on home page
   useEffect(() => {
-    if (currentPage !== 'home') {
+    if (currentPage !== 'home' || isContactPage || isPricingPage) {
       setShowNavbar(true);
     } else {
       const timer = setTimeout(() => {
@@ -38,14 +46,30 @@ function AppContent() {
       }, 2500);
       return () => clearTimeout(timer);
     }
-  }, [currentPage]);
+  }, [currentPage, isContactPage, isPricingPage]);
 
   // Scroll to top when changing pages
   const handlePageChange = (page: PageType, planId?: string) => {
+    // If we're on contact or pricing page (router-based), navigate back to home first
+    if (isContactPage || isPricingPage) {
+      navigate('/');
+    }
     setCurrentPage(page);
     setSelectedPlan(planId);
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Handle Contact navigation
+  const handleContactClick = () => {
+    setMobileMenuOpen(false);
+    navigate('/contact');
+  };
+
+  // Handle Pricing navigation
+  const handlePricingClick = () => {
+    setMobileMenuOpen(false);
+    navigate('/pricing');
   };
 
   return (
@@ -92,10 +116,17 @@ function AppContent() {
                 </Button>
                 <Button
                   variant="ghost"
-                  onClick={() => handlePageChange('pricing')}
-                  className={currentPage === 'pricing' ? 'text-blue-600' : 'text-gray-600'}
+                  onClick={handlePricingClick}
+                  className={isPricingPage ? 'text-blue-600' : 'text-gray-600'}
                 >
                   Pricing
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={handleContactClick}
+                  className={isContactPage ? 'text-blue-600' : 'text-gray-600'}
+                >
+                  Contact
                 </Button>
 
                 {/* User Menu or Login */}
@@ -164,10 +195,17 @@ function AppContent() {
                   </Button>
                   <Button
                     variant="ghost"
-                    onClick={() => handlePageChange('pricing')}
-                    className={`justify-start ${currentPage === 'pricing' ? 'text-blue-600' : 'text-gray-600'}`}
+                    onClick={handlePricingClick}
+                    className={`justify-start ${isPricingPage ? 'text-blue-600' : 'text-gray-600'}`}
                   >
                     Pricing
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={handleContactClick}
+                    className={`justify-start ${isContactPage ? 'text-blue-600' : 'text-gray-600'}`}
+                  >
+                    Contact
                   </Button>
 
                   {/* Mobile User Menu */}
@@ -203,23 +241,31 @@ function AppContent() {
 
       {/* Page Content with padding for fixed navbar */}
       <div className={showNavbar ? "pt-16" : ""}>
-        {currentPage === 'home' && (
-          <div className="min-h-screen bg-white">
-            <Hero onNavigate={handlePageChange} />
-            <Features onNavigate={handlePageChange} />
-            <CTA onNavigate={handlePageChange} />
-            <Footer onNavigate={handlePageChange} />
-          </div>
-        )}
+        <Routes>
+          <Route path="/contact" element={<ContactPage onNavigate={handlePageChange} />} />
+          <Route path="/pricing" element={<PricingPage onNavigate={handlePageChange} />} />
+          <Route path="*" element={
+            <>
+              {currentPage === 'home' && (
+                <div className="min-h-screen bg-white">
+                  <Hero onNavigate={handlePageChange} />
+                  <Features onNavigate={handlePageChange} />
+                  <CTA onNavigate={handlePageChange} />
+                  <Footer onNavigate={handlePageChange} />
+                </div>
+              )}
 
-        {currentPage === 'pricing' && <PricingPage onNavigate={handlePageChange} />}
-        {currentPage === 'checkout' && <CheckoutPage onNavigate={handlePageChange} selectedPlan={selectedPlan} />}
-        {currentPage === 'terms' && <TermsOfService onNavigate={handlePageChange} />}
-        {currentPage === 'privacy' && <PrivacyPolicy onNavigate={handlePageChange} />}
-        {currentPage === 'refund' && <RefundPolicy onNavigate={handlePageChange} />}
-        {currentPage === 'networth' && <NetworthSystemPage onNavigate={handlePageChange} />}
-        {currentPage === 'roi-tracker' && <ROITrackerPage onNavigate={handlePageChange} />}
-        {currentPage === 'tax-automation' && <TaxAutomationPage onNavigate={handlePageChange} />}
+              {currentPage === 'pricing' && <PricingPage onNavigate={handlePageChange} />}
+              {currentPage === 'checkout' && <CheckoutPage onNavigate={handlePageChange} selectedPlan={selectedPlan} />}
+              {currentPage === 'terms' && <TermsOfService onNavigate={handlePageChange} />}
+              {currentPage === 'privacy' && <PrivacyPolicy onNavigate={handlePageChange} />}
+              {currentPage === 'refund' && <RefundPolicy onNavigate={handlePageChange} />}
+              {currentPage === 'networth' && <NetworthSystemPage onNavigate={handlePageChange} />}
+              {currentPage === 'roi-tracker' && <ROITrackerPage onNavigate={handlePageChange} />}
+              {currentPage === 'tax-automation' && <TaxAutomationPage onNavigate={handlePageChange} />}
+            </>
+          } />
+        </Routes>
       </div>
     </>
   );
@@ -229,7 +275,9 @@ export default function App() {
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <AuthProvider>
-        <AppContent />
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
       </AuthProvider>
     </GoogleOAuthProvider>
   );

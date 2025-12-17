@@ -124,8 +124,17 @@ export function PricingCards({ onNavigate }: PricingCardsProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative"
+                className={`relative ${tier.popular ? 'pt-6' : ''}`}
               >
+                {/* Badge outside of Card to prevent clipping */}
+                {tier.popular && (
+                  <div className="absolute -top-1 left-1/2 -translate-x-1/2 z-10">
+                    <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-1.5 shadow-lg">
+                      Most Popular
+                    </Badge>
+                  </div>
+                )}
+                
                 <Card
                   className={`relative h-full flex flex-col overflow-hidden ${
                     tier.popular
@@ -134,14 +143,7 @@ export function PricingCards({ onNavigate }: PricingCardsProps) {
                   }`}
                 >
                   {tier.popular && (
-                    <>
-                      <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                        <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-1.5 shadow-lg">
-                          Most Popular
-                        </Badge>
-                      </div>
-                      <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 to-blue-600`}></div>
-                    </>
+                    <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 to-blue-600`}></div>
                   )}
                   
                   {/* Header with gradient background */}
