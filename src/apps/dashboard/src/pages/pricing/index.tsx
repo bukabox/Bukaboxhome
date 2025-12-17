@@ -5,7 +5,7 @@
  * Accessible dari router URL: /pricing
  */
 
-import { Navbar } from '@/components/layout/Navbar';
+import Navbar from '@/components/landing/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { PricingHero } from '@/components/pricing/PricingHero';
 import { PricingCards } from '@/components/pricing/PricingCards';

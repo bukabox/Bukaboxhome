@@ -10,7 +10,7 @@ import { Features } from '@/components/landing/Features';
 import { CTA } from '@/components/landing/CTA';
 import { Footer } from '@/components/layout/Footer';
 import { SplashScreen } from '@/components/landing/SplashScreen';
-import { Navbar } from '@/components/layout/Navbar';
+import Navbar from '@/components/landing/Navbar';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 

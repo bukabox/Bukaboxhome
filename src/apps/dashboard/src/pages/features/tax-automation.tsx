@@ -1,41 +1,31 @@
-import { motion } from 'motion/react';
-import { ArrowLeft, Sparkles, Zap, FileCheck, RefreshCw, Database, Cloud } from 'lucide-react';
-import { TaxAutomation } from '../../components/illustrations/TaxAutomation';
+import React from 'react';
+import { ArrowRight, FileText, Calculator, Clock, Shield } from 'lucide-react';
+import { Button } from '../../components/ui/button';
 import { Link } from 'react-router-dom';
-import { Navbar } from '../../components/layout/Navbar';
+import Navbar from '../../components/landing/Navbar';
 import { Footer } from '../../components/layout/Footer';
 
 export default function TaxAutomationFeaturePage() {
   const features = [
     {
-      icon: Zap,
+      icon: Calculator,
       title: 'Automatic Calculation',
       description: 'Hitung pajak secara otomatis dari semua transaksi bisnis Anda. Sistem pintar yang mempelajari pola transaksi dan kategori pengeluaran.'
     },
     {
-      icon: FileCheck,
+      icon: FileText,
       title: 'Compliance Ready',
       description: 'Format laporan sesuai dengan standar DJP dan peraturan perpajakan Indonesia. Siap untuk audit kapan saja.'
     },
     {
-      icon: RefreshCw,
+      icon: Clock,
       title: 'Workflow Automation',
       description: 'Otomasi alur kerja perpajakan dari input data, kalkulasi, hingga pelaporan. Hemat waktu hingga 80% dari proses manual.'
     },
     {
-      icon: Database,
-      title: 'Smart Data Integration',
-      description: 'Integrasi langsung dengan sistem accounting, e-commerce, dan payment gateway untuk sinkronisasi data otomatis.'
-    },
-    {
-      icon: Cloud,
-      title: 'Cloud-Based Storage',
-      description: 'Semua dokumen pajak tersimpan aman di cloud dengan backup otomatis. Akses dari mana saja, kapan saja.'
-    },
-    {
-      icon: Sparkles,
-      title: 'AI-Powered Insights',
-      description: 'Dapatkan rekomendasi tax optimization berbasis AI untuk meminimalkan beban pajak secara legal dan efektif.'
+      icon: Shield,
+      title: 'Security and Privacy',
+      description: 'Data Anda aman dan terlindungi dengan enkripsi tingkat tinggi. Kepatuhan terhadap standar keamanan data.'
     }
   ];
 
@@ -50,7 +40,7 @@ export default function TaxAutomationFeaturePage() {
             to="/"
             className="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors mb-8"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowRight className="w-5 h-5" />
             <span>Kembali ke Home</span>
           </Link>
 

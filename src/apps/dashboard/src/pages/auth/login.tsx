@@ -17,7 +17,8 @@ export default function LoginPage() {
   // Handle Google OAuth success
   const handleGoogleSuccess = (credentialResponse: any) => {
     loginWithGoogle(credentialResponse);
-    navigate('/member');
+    // Use window.location for more reliable redirect
+    window.location.href = '/member';
   };
 
   // Quick Test Login (untuk development/testing)
@@ -64,10 +65,10 @@ export default function LoginPage() {
     // Set subscription
     localStorage.setItem('bukabox_subscription', JSON.stringify(mockSubscription[tier]));
 
+    // Use window.location for reliable redirect (especially in Figma Make)
     setTimeout(() => {
-      setIsLoading(false);
-      navigate('/member');
-    }, 500);
+      window.location.href = '/member';
+    }, 300);
   };
 
   return (

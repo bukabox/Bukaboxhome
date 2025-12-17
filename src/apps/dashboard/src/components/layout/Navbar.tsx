@@ -64,6 +64,13 @@ export function Navbar() {
             {/* User Menu or Login */}
             {isAuthenticated && user ? (
               <div className="flex items-center gap-2 ml-2 pl-2 border-l border-gray-300">
+                <Button
+                  variant="ghost"
+                  onClick={() => navigate('/member')}
+                  className={`${location.pathname.startsWith('/member') ? 'text-blue-600' : 'text-gray-600'} hover:text-blue-600`}
+                >
+                  Dashboard
+                </Button>
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-50">
                   <img 
                     src={user.picture} 
@@ -81,7 +88,16 @@ export function Navbar() {
                   <LogOut className="w-4 h-4" />
                 </Button>
               </div>
-            ) : null}
+            ) : (
+              <div className="flex items-center gap-2 ml-2 pl-2 border-l border-gray-300">
+                <Button
+                  onClick={() => navigate('/login')}
+                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                >
+                  Login
+                </Button>
+              </div>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -130,7 +146,7 @@ export function Navbar() {
               </Button>
 
               {/* Mobile User Menu */}
-              {isAuthenticated && user && (
+              {isAuthenticated && user ? (
                 <>
                   <div className="flex items-center gap-2 px-3 py-2 mt-2 border-t border-gray-200">
                     <img 
@@ -146,6 +162,17 @@ export function Navbar() {
                   <Button
                     variant="ghost"
                     onClick={() => {
+                      setMobileMenuOpen(false);
+                      navigate('/member');
+                    }}
+                    className={`justify-start ${location.pathname.startsWith('/member') ? 'text-blue-600' : 'text-gray-600'}`}
+                  >
+                    <User className="w-4 h-4 mr-2" />
+                    Dashboard
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
                       logout();
                       setMobileMenuOpen(false);
                     }}
@@ -155,6 +182,16 @@ export function Navbar() {
                     Logout
                   </Button>
                 </>
+              ) : (
+                <Button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    navigate('/login');
+                  }}
+                  className="bg-blue-600 hover:bg-blue-700 text-white mt-2"
+                >
+                  Login
+                </Button>
               )}
             </div>
           </div>

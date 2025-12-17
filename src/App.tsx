@@ -1,3 +1,9 @@
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import MemberDashboard from './pages/MemberDashboard';
+import Dashboard from './pages/Dashboard';
+import DashboardOverview from './pages/DashboardOverview';
+import ProjectsPage from './pages/ProjectsPage';
 import { Hero } from './components/Hero';
 import { Features } from './components/Features';
 import { CTA } from './components/CTA';
@@ -35,6 +41,10 @@ function AppContent() {
   // Check if we're on contact page (router-based)
   const isContactPage = location.pathname === '/contact';
   const isPricingPage = location.pathname === '/pricing';
+  const isMemberPage = location.pathname.startsWith('/member') || 
+                       location.pathname.startsWith('/login') || 
+                       location.pathname.startsWith('/register') ||
+                       location.pathname.startsWith('/dashboard');
 
   // Show navbar after splash screen (3 seconds) or immediately if not on home page
   useEffect(() => {
@@ -76,8 +86,8 @@ function AppContent() {
     <>
       {currentPage === 'home' && <SplashScreen />}
       
-      {/* Navigation Bar */}
-      {showNavbar && (
+      {/* Navigation Bar - Hidden on member pages */}
+      {showNavbar && !isMemberPage && (
         <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between h-16">
@@ -124,7 +134,7 @@ function AppContent() {
                 <Button
                   variant="ghost"
                   onClick={handleContactClick}
-                  className={isContactPage ? 'text-blue-600' : 'text-gray-600'}
+                  className={`justify-start ${isContactPage ? 'text-blue-600' : 'text-gray-600'}`}
                 >
                   Contact
                 </Button>
@@ -132,6 +142,13 @@ function AppContent() {
                 {/* User Menu or Login */}
                 {isAuthenticated && user ? (
                   <div className="flex items-center gap-2 ml-2 pl-2 border-l border-gray-300">
+                    <Button
+                      variant="ghost"
+                      onClick={() => navigate('/dashboard')}
+                      className="text-gray-600 hover:text-blue-600"
+                    >
+                      Dashboard
+                    </Button>
                     <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-50">
                       <img 
                         src={user.picture} 
@@ -149,7 +166,23 @@ function AppContent() {
                       <LogOut className="w-4 h-4" />
                     </Button>
                   </div>
-                ) : null}
+                ) : (
+                  <div className="flex items-center gap-2 ml-2 pl-2 border-l border-gray-300">
+                    <Button
+                      variant="ghost"
+                      onClick={() => navigate('/login')}
+                      className="text-gray-600 hover:text-gray-900"
+                    >
+                      Login
+                    </Button>
+                    <Button
+                      onClick={() => navigate('/register')}
+                      className="bg-gradient-to-r from-blue-600 to-blue-400 text-white hover:shadow-lg"
+                    >
+                      Get Started
+                    </Button>
+                  </div>
+                )}
               </div>
 
               {/* Mobile Menu Button */}
@@ -209,7 +242,7 @@ function AppContent() {
                   </Button>
 
                   {/* Mobile User Menu */}
-                  {isAuthenticated && user && (
+                  {isAuthenticated && user ? (
                     <>
                       <div className="flex items-center gap-2 px-3 py-2 mt-2 border-t border-gray-200">
                         <img 
@@ -224,6 +257,17 @@ function AppContent() {
                       </div>
                       <Button
                         variant="ghost"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          navigate('/dashboard');
+                        }}
+                        className="justify-start text-gray-600"
+                      >
+                        <User className="w-4 h-4 mr-2" />
+                        Dashboard
+                      </Button>
+                      <Button
+                        variant="ghost"
                         onClick={logout}
                         className="justify-start text-red-600"
                       >
@@ -231,6 +275,28 @@ function AppContent() {
                         Logout
                       </Button>
                     </>
+                  ) : (
+                    <div className="flex flex-col gap-2 mt-2 pt-2 border-t border-gray-200">
+                      <Button
+                        variant="ghost"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          navigate('/login');
+                        }}
+                        className="justify-start text-gray-600"
+                      >
+                        Login
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          navigate('/register');
+                        }}
+                        className="bg-gradient-to-r from-blue-600 to-blue-400 text-white"
+                      >
+                        Get Started
+                      </Button>
+                    </div>
                   )}
                 </div>
               </div>
@@ -240,10 +306,24 @@ function AppContent() {
       )}
 
       {/* Page Content with padding for fixed navbar */}
-      <div className={showNavbar ? "pt-16" : ""}>
+      <div className={showNavbar && !isMemberPage ? "pt-16" : ""}>
         <Routes>
           <Route path="/contact" element={<ContactPage onNavigate={handlePageChange} />} />
           <Route path="/pricing" element={<PricingPage onNavigate={handlePageChange} />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/member" element={<MemberDashboard />} />
+          
+          {/* Dashboard Routes with Nested Structure */}
+          <Route path="/dashboard" element={<Dashboard />}>
+            <Route index element={<DashboardOverview />} />
+            <Route path="networth" element={<div className="p-6 bg-white rounded-xl">Networth Tracker (Coming Soon)</div>} />
+            <Route path="projects" element={<ProjectsPage />} />
+            <Route path="roi" element={<div className="p-6 bg-white rounded-xl">ROI Calculator (Coming Soon)</div>} />
+            <Route path="tax" element={<div className="p-6 bg-white rounded-xl">Tax Automation (Coming Soon)</div>} />
+            <Route path="settings" element={<div className="p-6 bg-white rounded-xl">Settings (Coming Soon)</div>} />
+          </Route>
+
           <Route path="*" element={
             <>
               {currentPage === 'home' && (

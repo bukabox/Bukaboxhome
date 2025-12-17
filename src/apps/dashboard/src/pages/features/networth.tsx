@@ -1,26 +1,16 @@
-import { motion } from 'motion/react';
-import { ArrowLeft, PiggyBank, TrendingUp, BarChart3, Wallet, PieChart, Activity } from 'lucide-react';
-import { NetworthDashboard } from '../../components/illustrations/NetworthDashboard';
+import React from 'react';
+import { ArrowRight, TrendingUp, PieChart, Calendar, Shield } from 'lucide-react';
+import { Button } from '../../components/ui/button';
 import { Link } from 'react-router-dom';
-import { Navbar } from '../../components/layout/Navbar';
+import Navbar from '../../components/landing/Navbar';
 import { Footer } from '../../components/layout/Footer';
 
 export default function NetworthFeaturePage() {
   const features = [
     {
-      icon: Wallet,
-      title: 'Multi-Asset Tracking',
-      description: 'Pantau semua aset Anda dalam satu dashboard - dari properti, investasi saham, reksa dana, hingga crypto dan aset digital lainnya.'
-    },
-    {
       icon: TrendingUp,
       title: 'Real-Time Updates',
       description: 'Dapatkan update nilai kekayaan secara real-time dengan integrasi langsung ke berbagai platform investasi dan perbankan.'
-    },
-    {
-      icon: BarChart3,
-      title: 'Advanced Analytics',
-      description: 'Analisis mendalam tentang pertumbuhan kekayaan Anda dengan grafik interaktif, trend analysis, dan predictive insights.'
     },
     {
       icon: PieChart,
@@ -28,14 +18,14 @@ export default function NetworthFeaturePage() {
       description: 'Visualisasi distribusi aset Anda dan dapatkan rekomendasi untuk optimasi portfolio berdasarkan risk profile.'
     },
     {
-      icon: Activity,
-      title: 'Performance Monitoring',
-      description: 'Track performa setiap aset dan bandingkan dengan benchmark market untuk keputusan investasi yang lebih baik.'
-    },
-    {
-      icon: PiggyBank,
+      icon: Calendar,
       title: 'Goal Planning',
       description: 'Set target keuangan Anda dan monitor progress secara otomatis dengan proyeksi timeline yang akurat.'
+    },
+    {
+      icon: Shield,
+      title: 'Security',
+      description: 'Lindungi data keuangan Anda dengan enkripsi tingkat tinggi dan akses yang terkontrol.'
     }
   ];
 
@@ -50,7 +40,7 @@ export default function NetworthFeaturePage() {
             to="/"
             className="flex items-center gap-2 text-slate-600 hover:text-purple-600 transition-colors mb-8"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowRight className="w-5 h-5" />
             <span>Kembali ke Home</span>
           </Link>
 

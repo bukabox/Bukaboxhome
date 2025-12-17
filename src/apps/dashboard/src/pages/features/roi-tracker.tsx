@@ -1,14 +1,14 @@
-import { motion } from 'motion/react';
-import { ArrowLeft, TrendingUp, Calculator, LineChart, Target, Bell, Shield } from 'lucide-react';
-import { ROITracker } from '../../components/illustrations/ROITracker';
+import React from 'react';
+import { ArrowRight, LineChart, DollarSign, TrendingUp, BarChart3 } from 'lucide-react';
+import { Button } from '../../components/ui/button';
 import { Link } from 'react-router-dom';
-import { Navbar } from '../../components/layout/Navbar';
+import Navbar from '../../components/landing/Navbar';
 import { Footer } from '../../components/layout/Footer';
 
 export default function ROITrackerFeaturePage() {
   const features = [
     {
-      icon: Calculator,
+      icon: DollarSign,
       title: 'Automatic ROI Calculation',
       description: 'Hitung ROI secara otomatis dari semua investasi Anda dengan akurasi tinggi. Tidak perlu lagi hitung manual di spreadsheet.'
     },
@@ -18,19 +18,9 @@ export default function ROITrackerFeaturePage() {
       description: 'Monitor performa investasi real-time dengan grafik interaktif yang menampilkan trend, volatilitas, dan historical performance.'
     },
     {
-      icon: Target,
+      icon: BarChart3,
       title: 'Benchmark Comparison',
       description: 'Bandingkan performa portfolio Anda dengan market benchmark seperti IHSG, S&P500, atau custom benchmark lainnya.'
-    },
-    {
-      icon: Bell,
-      title: 'Smart Alerts',
-      description: 'Dapatkan notifikasi otomatis saat ROI mencapai target tertentu atau ada perubahan signifikan pada portfolio.'
-    },
-    {
-      icon: Shield,
-      title: 'Risk Analysis',
-      description: 'Analisis risk-adjusted returns dengan metrik seperti Sharpe Ratio, Maximum Drawdown, dan Volatility Score.'
     },
     {
       icon: TrendingUp,
@@ -50,7 +40,7 @@ export default function ROITrackerFeaturePage() {
             to="/"
             className="flex items-center gap-2 text-slate-600 hover:text-green-600 transition-colors mb-8"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowRight className="w-5 h-5" />
             <span>Kembali ke Home</span>
           </Link>
 
